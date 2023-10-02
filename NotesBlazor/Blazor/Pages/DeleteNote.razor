@@ -1,0 +1,56 @@
+﻿@page "/DeleteNote/{Id}"
+@using Application.Service
+@using Domain.Model
+@inject NoteService noteService
+@inject NavigationManager NavigationManager
+
+
+<h3>Delete Note</h3>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="for-group">
+                <label for="Id" class="control-label">Note Number</label>
+                <label>@obj.Id</label>
+            </div>
+
+            <div class="for-group">
+                <label for="Content" class="control-label">Content</label>
+                <label>@obj.Content </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@DeleteNoteRecord" value="Delete Note" />
+                <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    Note obj = new Note();
+
+    protected override async Task OnInitializedAsync()
+    {
+        obj = await Task.Run(() => noteService.GetNoteById(Convert.ToInt32(Id)));
+    }
+
+    protected async void DeleteNoteRecord()
+    {
+        await noteService.DeleteNote(obj);
+        NavigationManager.NavigateTo("Notes");
+    }
+    protected async void Cancel()
+    {
+        NavigationManager.NavigateTo("Notes");
+    }
+}

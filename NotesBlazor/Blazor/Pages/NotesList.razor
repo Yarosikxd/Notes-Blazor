@@ -17,7 +17,9 @@ else
     <table class="table">
         <thead>
             <tr>
-               
+               <th>
+                   Number Note
+               </th>
                 <th>
                     Note Title
                 </th>
@@ -27,12 +29,21 @@ else
                 <th>
                     Content
                 </th>
+                <th> 
+                    Edit Note
+                </th>
+                <th>
+                    Delete Note
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach(var note in NtObj)
             {
                 <tr>
+                    <td>
+                        @note.Id
+                    </td>
                     <td>
                         @note.Title
                     </td>
@@ -41,6 +52,16 @@ else
                     </td>
                     <td>
                         @note.Content
+                    </td>
+                    <td>
+                        <a class="nav-link btn btn-primary" href="EditNote/@note.Id">
+                            <span class="oi oi-pencil"  aria-hidden="true" >Edit Note </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="nav-link btn btn-danger" href="DeleteNote/@note.Id">
+                            <span class="oi oi-trash"  aria-hidden="true">Delete Note </span>
+                        </a>
                     </td>
                 </tr>
             }
