@@ -1,10 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Context;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using System;
+using Blazor.Data;
+using Application.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +13,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// Додайте служби та налаштування додатка
-// ...
+// Add services to the container.
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<NoteService>();
+
 
 var app = builder.Build();
 
@@ -29,6 +30,20 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<AppDbContext>();
         context.Database.Migrate(); // Виконує міграції бази даних
 }
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+}
 
-// Запустіть додаток
+
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
 app.Run();
+
+

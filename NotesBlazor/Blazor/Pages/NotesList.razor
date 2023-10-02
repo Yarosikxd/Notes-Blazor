@@ -1,0 +1,58 @@
+﻿@page "/Notes"
+@using Domain.Model
+@using Application.Service
+@inject NoteService noteService
+
+<NavLink class="nav-link" href="AddNewNote">
+    <span class="oi oi-plus" aria-hidden="true"> Add New Note</span>
+</NavLink>
+<h3>NotesList</h3>
+
+@if(NtObj is null)
+{
+    <p><em> Loading..............</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+               
+                <th>
+                    Note Title
+                </th>
+                <th>
+                    Data Create
+                </th>
+                <th>
+                    Content
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var note in NtObj)
+            {
+                <tr>
+                    <td>
+                        @note.Title
+                    </td>
+                    <td>
+                        @note.DateCreate
+                    </td>
+                    <td>
+                        @note.Content
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Note> NtObj;
+
+    protected override async Task OnInitializedAsync()
+    {
+        NtObj = await Task.Run(() => noteService.GetAllNotes());
+    }
+}
