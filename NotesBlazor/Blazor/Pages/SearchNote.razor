@@ -1,0 +1,54 @@
+﻿@page "/SearchNote"
+@using Domain.Model
+@using System.Linq
+@using Microsoft.EntityFrameworkCore
+@using Domain.Context
+@inject AppDbContext _context
+
+<input type="text" @bind="searchTerm" placeholder="Enter The Word Fo Searching">
+<button @onclick="Search">Search</button>
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Note Id</th>
+                <th>Note Title</th>
+                <th>Note Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in filteredNotes)
+            {
+                <tr>
+                    <td>@note.Id</td>
+                    <td>@note.Title</td>
+                    <td>@note.Content</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+@code {
+    private string searchTerm = "";
+    private List<Note> notes = new List<Note>(); // Завантажте дані нотаток з бази даних
+
+    private List<Note> filteredNotes = new List<Note>(); // Визначення filteredNotes тут
+
+    private void Search()
+    {
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            // Виконуємо пошук у таблиці Notes за словами у заголовку або тексті
+            filteredNotes = _context.Notes
+                .Where(note => EF.Functions.ILike(note.Title, $"%{searchTerm}%") || EF.Functions.ILike(note.Content, $"%{searchTerm}%"))
+                .ToList();
+        }
+        else
+        {
+            // Якщо пошуковий запит порожній, показуємо всі нотатки
+            filteredNotes = _context.Notes.ToList();
+        }
+    }
+}
