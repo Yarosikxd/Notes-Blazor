@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Context;
-using Blazor.Data;
 using Application.Service;
 
 var builder = WebApplication.CreateBuilder(args);

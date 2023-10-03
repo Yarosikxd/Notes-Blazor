@@ -7,8 +7,8 @@ namespace Domain.Repository
 {
     public class NoteRepository : INoteRepository
     {
-        private readonly AppDbContext _context;
-        public NoteRepository(AppDbContext context)
+        private readonly IDbContext _context;
+        public NoteRepository(IDbContext context)
         {
             _context = context;
         }
