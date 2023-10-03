@@ -32,22 +32,22 @@
 
 @code {
     private string searchTerm = "";
-    private List<Note> notes = new List<Note>(); // Завантажте дані нотаток з бази даних
+    private List<Note> notes = new List<Note>(); 
 
-    private List<Note> filteredNotes = new List<Note>(); // Визначення filteredNotes тут
+    private List<Note> filteredNotes = new List<Note>(); 
 
     private void Search()
     {
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            // Виконуємо пошук у таблиці Notes за словами у заголовку або тексті
+            //   perform a search in the Notes table by words in the title or text
             filteredNotes = _context.Notes
                 .Where(note => EF.Functions.ILike(note.Title, $"%{searchTerm}%") || EF.Functions.ILike(note.Content, $"%{searchTerm}%"))
                 .ToList();
         }
         else
         {
-            // Якщо пошуковий запит порожній, показуємо всі нотатки
+            // If the search query is empty, we show all notes
             filteredNotes = _context.Notes.ToList();
         }
     }

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("appsettings.json");
 
-// Додайте налаштування рядка підключення до бази даних PostgreSQL
+// database connection string settings PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -21,13 +21,13 @@ builder.Services.AddScoped<NoteService>();
 
 var app = builder.Build();
 
-// Налаштуйте засоби взаємодії з базою даних
+// means of interaction with the database
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
    
         var context = services.GetRequiredService<AppDbContext>();
-        context.Database.Migrate(); // Виконує міграції бази даних
+        context.Database.Migrate(); //  interaction with the database
 }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

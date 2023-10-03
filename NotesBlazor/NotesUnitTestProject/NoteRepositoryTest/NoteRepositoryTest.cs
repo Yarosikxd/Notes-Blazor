@@ -23,14 +23,14 @@ namespace NotesUnitTestProject.NoteRepositoryTest
 
             var noteService = new NoteRepository(mockDbContext.Object);
 
-            var newNote = new Note { Id = 1, Title = "Test Note" }; // Створюємо нову нотатку
+            var newNote = new Note { Id = 1, Title = "Test Note" }; //  create a new note
 
             // Act 
-            notes.Add(newNote); // Додаємо нову нотатку до списку перед викликом AddNewNotes
+            notes.Add(newNote); //  add a new note to the list before the call AddNewNotes
             noteService.AddNewNotes(newNote);
 
             // Assert
-            Assert.Equal(newNote.Title, notes.First().Title); // Перевіряємо, чи нотатка дійсно була додана
+            Assert.Equal(newNote.Title, notes.First().Title); // check whether the note was really added
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace NotesUnitTestProject.NoteRepositoryTest
                 new Note { Id = 3, Title = "Note 3" }
             };
 
-            var noteToDelete = notes.First(); // Вибираємо нотатку для видалення
+            var noteToDelete = notes.First(); // Select the note to delete
 
             var mockDbSet = new Mock<DbSet<Note>>();
             mockDbSet.SetupData(notes);
@@ -58,14 +58,14 @@ namespace NotesUnitTestProject.NoteRepositoryTest
             // Act 
             var result = await noteService.DeleteNote(noteToDelete);
 
-            // Оновлюємо список notes після видалення
+            //  update the list of notes after deletion
             notes.Remove(noteToDelete);
 
             // Assert
-            // Перевіряємо, що результат дорівнює true (якщо ви так бажаєте)
+            //  check that the result is true 
             Assert.True(result);
 
-            // Перевіряємо, що нотатка більше не міститься у списку
+            // check that the note is no longer in the list
             Assert.DoesNotContain(noteToDelete, notes);
 
         }
@@ -77,7 +77,7 @@ namespace NotesUnitTestProject.NoteRepositoryTest
             var noteToUpdate = new Note { Id = 1, Title = "Test Note", Content = "Old Content" };
 
             var mockDbSet = new Mock<DbSet<Note>>();
-            mockDbSet.SetupData(new List<Note> { noteToUpdate }); // Додаємо нотатку до DbSet
+            mockDbSet.SetupData(new List<Note> { noteToUpdate }); // Add Note To DbSet
 
             var mockDbContext = new Mock<IDbContext>();
             mockDbContext.SetupGet(c => c.Notes).Returns(mockDbSet.Object);
