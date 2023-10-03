@@ -1,6 +1,7 @@
 ﻿@page "/ViewNote/{Id}"
 @using Application.Service
 @using Domain.Model
+@using Microsoft.AspNetCore.Components.Web.Extensions
 @inject NoteService noteService
 @inject NavigationManager NavigationManager
 
@@ -15,11 +16,11 @@
                 <label for="Id" class="control-label">Note Number</label>
                 <input form="Id" class="form-control" @bind="@obj.Id" />
             </div>
-
             <div class="for-group">
                 <label for="Content" class="control-label">Content</label>
                 <input form="Content" class="form-control" @bind="@obj.Content" />
             </div>
+           
         </div>
     </div>
     <div class="row">
@@ -49,5 +50,5 @@
         
         NavigationManager.NavigateTo("Notes");
     }
-    
+   
 }

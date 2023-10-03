@@ -3,30 +3,39 @@
 @using Application.Service
 @inject NoteService noteService
 
-<NavLink class="nav-link" href="AddNewNote" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: 1px solid #007bff; border-radius: 5px; border-width: 2px; width: 100px; height: 40px;">
-    <span class="oi oi-plus" aria-hidden="true"></span> New Note
-</NavLink>
+<div style="display: flex; justify-content: space-between;">
+    <NavLink class="nav-link" href="AddNewNote" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: 1px solid #007bff; border-radius: 5px; border-width: 2px; width: 100px; height: 40px;">
+        <span class="oi oi-plus" aria-hidden="true"></span> New Note
+    </NavLink>
+    <div> 
+        <NavLink class="nav-link" href="SearchNote" style="background-color: #007bff; color: #fff; padding: 10px 0; border: 1px solid #007bff; border-radius: 5px; border-width: 2px; width: 100%; height: 40px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">
+            <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search Notes
+        </NavLink>
+    </div>
+</div>
+
 <hr />
-<NavLink class="nav-link" href="SearchNote" style="background-color: #007bff; color: #fff; padding: 10px 0; border: 1px solid #007bff; border-radius: 5px; border-width: 2px; width: 100%; height: 40px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">
-    <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search Notes
-</NavLink>
+
 
 
 
 <h3>NotesList</h3>
 
-@if(NtObj is null)
+@if (NtObj is null)
 {
     <p><em> Loading..............</em></p>
 }
 else
 {
+    <div>
+        <p>Total Notes: @NtObj.Count</p>
+    </div>
     <table class="table">
         <thead>
             <tr>
-               <th>
-                   Number Note
-               </th>
+                <th>
+                    Number Note
+                </th>
                 <th>
                     Note Title
                 </th>
@@ -36,10 +45,8 @@ else
                 <th>
                     View Note
                 </th>
-              @*   <th>
-                    Content
-                </th> *@
-                <th> 
+
+                <th>
                     Edit Note
                 </th>
                 <th>
@@ -48,7 +55,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach(var note in NtObj)
+            @foreach (var note in NtObj)
             {
                 <tr>
                     <td>
@@ -60,9 +67,7 @@ else
                     <td>
                         @note.DateCreate
                     </td>
-                   @*  <td>
-                        @note.Content
-                    </td> *@
+
                     <td>
                         <a class="nav-link btn btn-primary" href="ViewNote/@note.Id">
                             <span class="oi oi-pencil" aria-hidden="true">View Note </span>
@@ -70,12 +75,12 @@ else
                     </td>
                     <td>
                         <a class="nav-link btn btn-primary" href="EditNote/@note.Id">
-                            <span class="oi oi-pencil"  aria-hidden="true" >Edit Note </span>
+                            <span class="oi oi-pencil" aria-hidden="true">Edit Note </span>
                         </a>
                     </td>
                     <td>
                         <a class="nav-link btn btn-danger" href="DeleteNote/@note.Id">
-                            <span class="oi oi-trash"  aria-hidden="true">Delete Note </span>
+                            <span class="oi oi-trash" aria-hidden="true">Delete Note </span>
                         </a>
                     </td>
                 </tr>
@@ -92,3 +97,4 @@ else
         NtObj = await Task.Run(() => noteService.GetAllNotes());
     }
 }
+
