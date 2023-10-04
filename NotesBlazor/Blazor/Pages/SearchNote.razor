@@ -4,6 +4,8 @@
 @using Microsoft.EntityFrameworkCore
 @using Domain.Context
 @inject AppDbContext _context
+@inject NavigationManager NavigationManager
+
 
 <input type="text" @bind="searchTerm" placeholder="Enter The Word Fo Searching">
 <button @onclick="Search">Search</button>
@@ -29,8 +31,18 @@
         </tbody>
     </table>
 
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@HideNote" value="Hide Search" />
+
+        </div>
+    </div>
+</div>
+
 
 @code {
+   
     private string searchTerm = "";
     private List<Note> notes = new List<Note>(); 
 
@@ -42,13 +54,19 @@
         {
             //   perform a search in the Notes table by words in the title or text
             filteredNotes = _context.Notes
-                .Where(note => EF.Functions.ILike(note.Title, $"%{searchTerm}%") || EF.Functions.ILike(note.Content, $"%{searchTerm}%"))
-                .ToList();
+            .Where(note => note.Title.Contains(searchTerm) || note.Content.Contains(searchTerm))
+            .ToList();
         }
         else
         {
             // If the search query is empty, we show all notes
             filteredNotes = _context.Notes.ToList();
         }
+    }
+    
+    protected async void HideNote()
+    {
+
+        NavigationManager.NavigateTo("Notes");
     }
 }
