@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Context;
 using Application.Service;
+using Application.Service.Service;
+using Domain.Repository.Interfaces;
+using Domain.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
+builder.Services.AddScoped<IDbContext, AppDbContext>();
+builder.Services.AddScoped<INoteService,NoteService>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<NoteService>();
 
 

@@ -8,8 +8,9 @@
 
 
 <input type="text" @bind="searchTerm" placeholder="Enter The Word Fo Searching">
-<button @onclick="Search">Search</button>
+<button type="button" class="btn btn-primary btn-sm" @onclick="Search">Search</button>
 
+<hr />
 
     <table class="table table-bordered table-striped">
         <thead>
@@ -34,7 +35,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <input type="button" class="btn btn-primary" @onclick="@HideNote" value="Hide Search" />
+            <input type="button" class="btn btn-primary btn-sm" @onclick="@HideNote" value="Hide Search" />
 
         </div>
     </div>

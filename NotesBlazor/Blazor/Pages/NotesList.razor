@@ -3,15 +3,13 @@
 @using Application.Service
 @inject NoteService noteService
 
-<div style="display: flex; justify-content: space-between;">
-    <NavLink class="nav-link" href="AddNewNote" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: 1px solid #007bff; border-radius: 5px; border-width: 2px; width: 100px; height: 40px;">
+<div class="d-flex justify-content-between">
+    <a class="btn btn-primary btn-sm" href="AddNewNote" style="width: 100px;">
         <span class="oi oi-plus" aria-hidden="true"></span> New Note
-    </NavLink>
-    <div> 
-        <NavLink class="nav-link" href="SearchNote" style="background-color: #007bff; color: #fff; padding: 10px 0; border: 1px solid #007bff; border-radius: 5px; border-width: 2px; width: 100%; height: 40px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">
-            <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search Notes
-        </NavLink>
-    </div>
+    </a>
+    <a class="btn btn-primary btn-sm" href="SearchNote" style="width: 100%; text-align: center;">
+        <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search Notes
+    </a>
 </div>
 
 <hr />
@@ -66,18 +64,18 @@ else
                     </td>
 
                     <td>
-                        <a class="nav-link btn btn-primary" href="ViewNote/@note.Id">
-                            <span class="oi oi-pencil" aria-hidden="true">View Note </span>
+                        <a class="btn btn-primary btn-sm" href="ViewNote/@note.Id">
+                            <span  aria-hidden="true">View Note</span>
                         </a>
                     </td>
                     <td>
-                        <a class="nav-link btn btn-primary" href="EditNote/@note.Id">
-                            <span class="oi oi-pencil" aria-hidden="true">Edit Note </span>
+                        <a class="btn btn-primary btn-sm" href="EditNote/@note.Id">
+                            <span  aria-hidden="true">Edit Note </span>
                         </a>
                     </td>
                     <td>
-                        <a class="nav-link btn btn-danger" href="DeleteNote/@note.Id">
-                            <span class="oi oi-trash" aria-hidden="true">Delete Note </span>
+                        <a class="btn btn-primary btn-sm" href="DeleteNote/@note.Id">
+                            <span  aria-hidden="true">Delete Note </span>
                         </a>
                     </td>
                 </tr>
