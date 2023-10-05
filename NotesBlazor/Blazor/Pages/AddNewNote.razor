@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="button" class="btn btn-primary btn-sm" @onclick="@CreateNewNote" value="Save Note" />
+                <input type="button" class="btn btn-primary btn-sm" @onclick="@CreateNewNoteAsync" value="Save Note" />
                 <input type="button" class="btn btn-danger btn-sm" @onclick="@Cancel"value="Cancel" />
             </div>
         </div>
@@ -36,9 +36,9 @@
 @code {
    public Note obj = new Note();
 
-    protected async void CreateNewNote()
+    protected async void CreateNewNoteAsync()
     {
-        await noteService.AddNewNotes(obj);
+        await noteService.AddNewNotesAsync(obj);
         NavigationManager.NavigateTo("Notes");
     }
    protected async void Cancel()

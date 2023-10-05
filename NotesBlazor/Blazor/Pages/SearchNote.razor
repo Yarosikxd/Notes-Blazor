@@ -35,7 +35,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <input type="button" class="btn btn-primary btn-sm" @onclick="@HideNote" value="Hide Search" />
+            <input type="button" class="btn btn-primary btn-sm" @onclick="@HideNoteAsync" value="Hide Search" />
 
         </div>
     </div>
@@ -65,7 +65,7 @@
         }
     }
     
-    protected async void HideNote()
+    protected async void HideNoteAsync()
     {
 
         NavigationManager.NavigateTo("Notes");

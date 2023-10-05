@@ -89,7 +89,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        NtObj = await Task.Run(() => noteService.GetAllNotes());
+        NtObj = await Task.Run(() => noteService.GetAllNotesAsync());
     }
 }
 

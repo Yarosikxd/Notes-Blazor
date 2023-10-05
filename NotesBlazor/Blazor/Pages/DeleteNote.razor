@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="button" class="btn btn-primary btn-sm" @onclick="@DeleteNoteRecord" value="Delete Note" />
+                <input type="button" class="btn btn-primary btn-sm" @onclick="@DeleteNoteRecordAsync" value="Delete Note" />
                 <input type="button" class="btn btn-danger btn-sm" @onclick="@Cancel" value="Cancel" />
             </div>
         </div>
@@ -42,12 +42,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        obj = await Task.Run(() => noteService.GetNoteById(Convert.ToInt32(Id)));
+        obj = await Task.Run(() => noteService.GetNoteByIdAsync(Convert.ToInt32(Id)));
     }
 
-    protected async void DeleteNoteRecord()
+    protected async void DeleteNoteRecordAsync()
     {
-        await noteService.DeleteNote(obj);
+        await noteService.DeleteNoteAsync(obj);
         NavigationManager.NavigateTo("Notes");
     }
     protected async void Cancel()

@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="button" class="btn btn-primary btn-sm" @onclick="@HideNote" value="Hide Note" />
+                <input type="button" class="btn btn-primary btn-sm" @onclick="@HideNoteAsync" value="Hide Note" />
                 
             </div>
         </div>
@@ -43,10 +43,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        obj = await Task.Run(() => noteService.GetNoteById(Convert.ToInt32(Id)));
+        obj = await Task.Run(() => noteService.GetNoteByIdAsync(Convert.ToInt32(Id)));
     }
 
-    protected async void HideNote()
+    protected async void HideNoteAsync()
     {
         
         NavigationManager.NavigateTo("Notes");

@@ -1,6 +1,5 @@
 ﻿using Application.Service.Service;
 using Domain.Model;
-using Domain.Repository;
 using Domain.Repository.Interfaces;
 
 namespace Application.Service
@@ -17,29 +16,75 @@ namespace Application.Service
             _repository = repository;
         }
 
-        public virtual async Task<bool> AddNewNotes(Note note)
+        public virtual async Task<bool> AddNewNotesAsync(Note note)
         {
-          return await _repository.AddNewNotes(note);
+            try
+            {
+                return await _repository.AddNewNotesAsync(note);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+          
         }
 
-        public async Task<bool> DeleteNote(Note note)
+        public async Task<bool> DeleteNoteAsync(Note note)
         {
-           return await _repository.DeleteNote(note);
+            try
+            {
+                return await _repository.DeleteNoteAsync(note);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+          
         }
 
-        public async Task<List<Note>> GetAllNotes()
+        public async Task<List<Note>> GetAllNotesAsync()
         {
-           return await _repository.GetAllNotes();
+            try
+            {
+                return await _repository.GetAllNotesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+           
         }
 
-        public async Task<Note> GetNoteById(int id)
+        public async Task<Note> GetNoteByIdAsync(int id)
         {
-          return await _repository.GetNoteById(id);
+            try
+            {
+                return await _repository.GetNoteByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+          
         }
 
-        public async Task<bool> UpdateNoteContent(Note note)
+        public async Task<bool> UpdateNoteContentAsync(Note note)
         {
-            return await _repository.UpdateNoteContent(note);
+            try
+            {
+                return await _repository.UpdateNoteContentAsync(note);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+           
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Domain.Repository
             _context = context;
         }
         // Add New Note
-        public async Task<bool> AddNewNotes(Note note)
+        public async Task<bool> AddNewNotesAsync(Note note)
         {
            note.DateCreate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
            await _context.Notes.AddAsync(note);
@@ -21,25 +21,25 @@ namespace Domain.Repository
            return true;
         }
         //Delete Note Data
-        public async Task<bool> DeleteNote(Note note)
+        public async Task<bool> DeleteNoteAsync(Note note)
         {
             _context.Notes.Remove(note);
             await _context.SaveChangesAsync();
             return true;
         }
         // Get All Notes List
-        public async Task<List<Note>> GetAllNotes()
+        public async Task<List<Note>> GetAllNotesAsync()
         {
             return await _context.Notes.ToListAsync();
         }
         // Get Note By Id
-        public async Task<Note> GetNoteById(int id)
+        public async Task<Note> GetNoteByIdAsync(int id)
         {
            Note note = await _context.Notes.FirstOrDefaultAsync(x=> x.Id == id);
             return note;
         }
         // Get Note Data
-        public async Task<bool> UpdateNoteContent(Note note)
+        public async Task<bool> UpdateNoteContentAsync(Note note)
         {
             _context.Notes.Update(note);
             await _context.SaveChangesAsync();
