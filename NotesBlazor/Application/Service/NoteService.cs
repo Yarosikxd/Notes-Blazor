@@ -7,13 +7,17 @@ namespace Application.Service
 {
     public class NoteService :  INoteService
     {
+        public NoteService()
+        {
+            
+        }
         private readonly INoteRepository _repository;
         public NoteService(INoteRepository repository) 
         {
             _repository = repository;
         }
 
-        public async Task<bool> AddNewNotes(Note note)
+        public virtual async Task<bool> AddNewNotes(Note note)
         {
           return await _repository.AddNewNotes(note);
         }
