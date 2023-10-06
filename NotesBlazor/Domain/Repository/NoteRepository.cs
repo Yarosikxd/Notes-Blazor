@@ -15,7 +15,7 @@ namespace Domain.Repository
         // Add New Note
         public async Task<bool> AddNewNotesAsync(Note note)
         {
-           note.DateCreate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+            note.DateCreate = DateTime.UtcNow;
            await _context.Notes.AddAsync(note);
            await _context.SaveChangesAsync();
            return true;
